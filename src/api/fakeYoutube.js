@@ -15,7 +15,7 @@ export default class FakeYoutube {
         ((item) => ({...item, id: item.id.videoId})))
     }
 
-    #mostPopular() {
+    async #mostPopular() {
         return axios.get(`/data/popular.json`).then((res) => res.data.items);
     }
 }
