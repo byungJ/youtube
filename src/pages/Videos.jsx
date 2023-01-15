@@ -4,10 +4,12 @@ import { useParams } from 'react-router-dom';
 import VideoCard from '../components/VideoCard';
 import Youtube, { search } from '../api/youtube';
 import FakeYoutube from '../api/fakeYoutube';
+import { useYoutubeApi } from '../context/YoutubApiContext';
 
 export default function Videos() {
 
     const {keyword} = useParams();
+    const { youtube } = useYoutubeApi();
 
     // fetch는 서버에서 일단 값을 받아오면 무조건 then 성공이라고 파악합닏.
     // 200번 말고 400번이여도 일단 400이라는 값이 들어 왔으니 then
@@ -24,11 +26,14 @@ export default function Videos() {
     // });
 
     // axios code
+    // const { isLoading, error, data : videos } = useQuery(['videos', keyword], () => {
+    //     const youtube = new Youtube();
+    //     return youtube.search(keyword);
+    // })
+
     const { isLoading, error, data : videos } = useQuery(['videos', keyword], () => {
-        const youtube = new Youtube();
         return youtube.search(keyword);
     })
-
 
     return (
         <>
